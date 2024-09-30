@@ -1,0 +1,19 @@
+pragma solidity ^0.8.0;
+
+contract HealthRecords {
+    struct Record {
+        string ipfsHash;
+        address owner;
+    }
+
+    mapping(address => Record[]) public healthRecords;
+
+    function createRecord(string memory ipfsHash) public {
+        Record memory newRecord = Record(ipfsHash, msg.sender);
+        healthRecords[msg.sender].push(newRecord);
+    }
+
+    function getRecords() public view returns (Record[] memory) {
+        return healthRecords[msg.sender];
+    }
+}
